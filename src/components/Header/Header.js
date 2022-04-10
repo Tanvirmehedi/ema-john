@@ -9,6 +9,8 @@ import "./Header.css";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
+
+  const emailSlice = user?.email.slice(0, 10);
   const logout = () => {
     signOut(auth);
   };
@@ -24,9 +26,12 @@ const Header = () => {
         <CustomLink to="/inventory">Inventory</CustomLink>
         <CustomLink to="/about">About</CustomLink>
         {user ? (
-          <CustomLink onClick={logout} to="/">
-            Logout
-          </CustomLink>
+          <>
+            <CustomLink onClick={logout} to="/">
+              Logout
+            </CustomLink>
+            <a href="/">{emailSlice.toUpperCase()}</a>
+          </>
         ) : (
           <CustomLink to="/login">Login</CustomLink>
         )}
